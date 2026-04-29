@@ -1,6 +1,6 @@
-# 🧪 QA Estudos — Paloma Oliveira
+# 🧪 Validação de Dados — JavaScript & QA
 
-Repositório de estudos práticos de JavaScript e automação de testes.
+Testes e validações de dados com JavaScript — casos de teste, funções e cenários de erro.
 
 ## 📚 Conteúdo
 
@@ -18,6 +18,6 @@ Repositório de estudos práticos de JavaScript e automação de testes.
 - Git & GitHub
 
 ## ▶️ Como rodar
-1. Instale o Node.js em nodejs.org
+1. Instale o Node.js em [nodejs.org](https://nodejs.org)
 2. Clone o repositório
 3. No terminal: `node dia5.js`
