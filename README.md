@@ -1,18 +1,23 @@
-# Sistema de Validação de Usuários
+# 🧪 QA Estudos — Paloma Oliveira
 
-Projeto de estudos QA — validação de dados com JavaScript
+Repositório de estudos práticos de JavaScript e automação de testes.
 
-## O que este projeto testa
-- Validação de nome, email e idade
-- Casos de erro e casos válidos
-- Boas práticas de casos de teste
+## 📚 Conteúdo
 
-## Como rodar
-1. Instale o Node.js
-2. Clone o repositório
-3. Rode: node dia5.js
+| Arquivo | Conteúdo |
+|---|---|
+| dia1.js | Variáveis, tipos e função de login |
+| dia2.js | Validação de idade e cálculo de desconto |
+| dia3.js | Arrays, loops e validador de usuários |
+| dia4.js | Validação de senha e cálculo de frete |
+| dia5.js | Sistema de validação refatorado |
 
-## Tecnologias
+## 🛠️ Tecnologias
 - JavaScript
 - Node.js
-- Git
+- Git & GitHub
+
+## ▶️ Como rodar
+1. Instale o Node.js em nodejs.org
+2. Clone o repositório
+3. No terminal: `node dia5.js`
