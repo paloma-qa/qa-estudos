@@ -1,0 +1,289 @@
+{
+  "info": {
+    "_postman_id": "81a2f806-bb62-48bd-8f1f-a5277599156b",
+    "name": "JSONPlaceholder - Testes de API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54341120",
+    "_collection_link": "https://go.postman.co/collection/54341120-81a2f806-bb62-48bd-8f1f-a5277599156b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Listar todos usuários",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code é 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retornou um array de usuários\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body).to.be.an(\"array\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retornou 10 usuários\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body.length).to.equal(10);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar usuário por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code é 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retornou um usuário\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body).to.be.an(\"object\");\r",
+              "    pm.expect(body).to.have.property(\"id\");\r",
+              "    pm.expect(body).to.have.property(\"name\");\r",
+              "    pm.expect(body).to.have.property(\"email\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retornou o usuário correto\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body.id).to.equal(1);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Usuário inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code é 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retornou objeto vazio\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body).to.be.an(\"object\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/999",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Criar usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code é 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retornou o usuário criado\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body).to.have.property(\"id\");\r",
+              "    pm.expect(body.name).to.equal(\"Paloma Oliveira\");\r",
+              "    pm.expect(body.email).to.equal(\"paloma@email.com\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Paloma Oliveira\",\r\n  \"email\": \"paloma@email.com\",\r\n  \"phone\": \"17999999999\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deletar usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code é 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retornou objeto vazio\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body).to.be.an(\"object\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code é 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retornou o usuário atualizado\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body.name).to.equal(\"Paloma Oliveira Atualizada\");\r",
+              "    pm.expect(body.email).to.equal(\"paloma.nova@email.com\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Paloma Oliveira Atualizada\",\r\n  \"email\": \"paloma.nova@email.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
