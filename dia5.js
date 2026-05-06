@@ -1,32 +1,39 @@
 // ================================================
-// PROJETO: SISTEMA DE VALIDAÇÃO DE USUÁRIOS
-// Autor: Paloma Oliveira | github.com/paloma-qa
-// Objetivo: refatorar validações em funções separadas
-// Melhoria em relação ao dia3.js: cada validação isolada e reutilizável
+// 🧪 PROJETO: VALIDAÇÃO DE USUÁRIOS
+// Autor: Paloma Oliveira
+// Objetivo: validar dados de entrada com funções reutilizáveis
 // ================================================
 
-// ---- FUNÇÕES DE VALIDAÇÃO ----
+// ================================
+// 🔧 FUNÇÕES DE VALIDAÇÃO
+// ================================
 
-// Valida se o nome é uma string não vazia
+// CT01 — Nome deve ser string não vazia
 function validarNome(nome) {
-    if (typeof nome !== "string" || nome === "") {
-        return "❌ Nome inválido";
+    if (typeof nome !== "string") {
+        return "❌ Nome deve ser texto";
+    }
+    if (nome.trim() === "") {
+        return "❌ Nome obrigatório";
     }
     return "✅ Nome válido";
 }
 
-// Valida se o email é uma string e contém @
+// CT02 — Email deve ser válido
 function validarEmail(email) {
-    if (typeof email !== "string" || !email.includes("@")) {
+    if (typeof email !== "string") {
+        return "❌ Email deve ser texto";
+    }
+    if (!email.includes("@")) {
         return "❌ Email inválido";
     }
     return "✅ Email válido";
 }
 
-// Valida se a idade é um número, positiva e maior ou igual a 18
+// CT03 — Idade deve ser número válido
 function validarIdade(idade) {
     if (typeof idade !== "number") {
-        return "❌ Idade deve ser um número";
+        return "❌ Idade deve ser number";
     }
     if (idade < 0) {
         return "❌ Idade inválida";
@@ -37,31 +44,57 @@ function validarIdade(idade) {
     return "✅ Idade válida";
 }
 
-// Chama todas as validações para um usuário
+// ================================
+// 🧪 FUNÇÃO PRINCIPAL DE VALIDAÇÃO
+// ================================
+
 function validarUsuario(usuario) {
-    console.log("--- Validando:", usuario.nome, "---");
-    console.log(validarNome(usuario.nome));
-    console.log(validarEmail(usuario.email));
-    console.log(validarIdade(usuario.idade));
+    console.log(`\n🔍 Validando usuário: ${usuario.nome || "NOME VAZIO"}`);
+
+    const resultadoNome = validarNome(usuario.nome);
+    const resultadoEmail = validarEmail(usuario.email);
+    const resultadoIdade = validarIdade(usuario.idade);
+
+    console.log("CT01:", resultadoNome);
+    console.log("CT02:", resultadoEmail);
+    console.log("CT03:", resultadoIdade);
 }
 
-// ---- CASOS DE TESTE ----
+// ================================
+// 🧪 MASSA DE DADOS (TESTES)
+// ================================
 
 const usuarios = [
-    // CT01 — usuário completamente válido
+
+    // CT04 — Usuário válido
     { nome: "Paloma", email: "paloma@email.com", idade: 29 },
 
-    // CT02 — ❌ 3 bugs: nome vazio, email sem @, idade negativa
-    { nome: "",       email: "sem-arroba.com",   idade: -1 },
+    // CT05 — Múltiplos erros
+    { nome: "", email: "sem-arroba.com", idade: -1 },
 
-    // CT03 — ⚠️ menor de idade, mas nome e email válidos
-    { nome: "Ana",    email: "ana@email.com",     idade: 17 },
+    // CT06 — Menor de idade
+    { nome: "Ana", email: "ana@email.com", idade: 17 },
 
-    // CT04 — ❌ BUG: idade como string em vez de number
-    { nome: "João",   email: "joao@email.com",    idade: "vinte" },
+    // CT07 — Tipo inválido na idade
+    { nome: "João", email: "joao@email.com", idade: "vinte" },
 ];
 
-// Percorre todos os usuários e valida cada um
-for (let i = 0; i < usuarios.length; i++) {
-    validarUsuario(usuarios[i]);
-}
+// ================================
+// 🔁 EXECUÇÃO DOS TESTES
+// ================================
+
+usuarios.forEach(usuario => validarUsuario(usuario));
+
+// ================================
+// 🔎 BUGS / MELHORIAS IDENTIFICADAS
+// ================================
+
+// BUG01 — Validação de email muito simples (apenas "@")
+// BUG02 — Sistema não impede continuidade com múltiplos erros
+// BUG03 — Retornos são strings (difícil para automação)
+
+// 💡 MELHORIAS:
+// - Usar regex para email
+// - Retornar objeto estruturado:
+//   { campo: "email", status: "erro", mensagem: "Email inválido" }
+// - Parar validação ao encontrar erro crítico (fail fast)
